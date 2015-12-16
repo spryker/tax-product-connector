@@ -16,7 +16,7 @@ use Spryker\Zed\Tax\Dependency\Plugin\TaxChangePluginInterface;
 /**
  * @method TaxProductConnectorConfig getConfig()
  */
-class TaxProductConnectorDependencyContainer extends AbstractBusinessFactory
+class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
 {
 
     /**
