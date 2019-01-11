@@ -7,7 +7,6 @@
 namespace Spryker\Zed\TaxProductConnector\Business\StrategyResolver;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\Sales\Business\Model\Order\SalesOrderSaverInterface;
 use Spryker\Zed\Tax\Business\Model\CalculatorInterface;
 
 interface ProductItemTaxRateCalculatorStrategyResolverInterface
