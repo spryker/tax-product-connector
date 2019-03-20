@@ -17,8 +17,15 @@ use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
 use Generated\Shared\Transfer\SequenceNumberSettingsTransfer;
+use Orm\Zed\Country\Persistence\SpyCountryQuery;
+use Orm\Zed\Shipment\Persistence\SpyShipmentCarrier;
+use Orm\Zed\Shipment\Persistence\SpyShipmentMethod;
+use Orm\Zed\Tax\Persistence\SpyTaxRate;
+use Orm\Zed\Tax\Persistence\SpyTaxSet;
+use Orm\Zed\Tax\Persistence\SpyTaxSetTax;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Spryker\Shared\Kernel\Store;
+use Spryker\Shared\Tax\TaxConstants;
 use Spryker\Zed\TaxProductConnector\Business\TaxProductConnectorBusinessFactory;
 use Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToTaxBridge;
 use Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToTaxInterface;
@@ -51,6 +58,8 @@ class ProductItemTaxRateCalculatorTest extends Test
     {
         parent::setUp();
 
+        $this->createShipmentMethodWithTaxSet(20.00, 'FR');
+        $this->createShipmentMethodWithTaxSet(15.00, 'DE');
     }
 
     /**
@@ -265,10 +274,10 @@ class ProductItemTaxRateCalculatorTest extends Test
             'sumNetPrice' => 10000,
             'idProductAbstract' => $idProductAbstract1,
         ])
-        ->withAnotherShipment(
-            (new ShipmentBuilder())
-            ->withAnotherShippingAddress($addressBuilder1)
-        );
+            ->withAnotherShipment(
+                (new ShipmentBuilder())
+                ->withAnotherShippingAddress($addressBuilder1)
+            );
 
         $idProductAbstract2 = 142;
         $addressBuilder2 = (new AddressBuilder(['iso2Code' => 'DE']));
@@ -415,5 +424,69 @@ class ProductItemTaxRateCalculatorTest extends Test
             ->willReturn($defaultTaxRate);
 
         return $bridgeMock;
+    }
+
+    /**
+     * @param float $taxRate
+     * @param string $iso2Code
+     *
+     * @return void
+     */
+    protected function createShipmentMethodWithTaxSet(float $taxRate, string $iso2Code): void
+    {
+        $countryEntity = SpyCountryQuery::create()->findOneByIso2Code($iso2Code);
+
+        $taxRateEntity0 = new SpyTaxRate();
+        $taxRateEntity0->setFkCountry($countryEntity->getIdCountry());
+        $taxRateEntity0->delete();
+
+        $taxRateEntity1 = new SpyTaxRate();
+        $taxRateEntity1->setRate($taxRate);
+        $taxRateEntity1->setName('test rate 1');
+        $taxRateEntity1->setFkCountry($countryEntity->getIdCountry());
+        $taxRateEntity1->save();
+
+        $taxRateEntity2 = new SpyTaxRate();
+        $taxRateEntity2->setRate(13);
+        $taxRateEntity2->setName('tax rate 2');
+        $taxRateEntity2->setFkCountry($countryEntity->getIdCountry());
+        $taxRateEntity2->save();
+
+        $taxRateExemptEntity = new SpyTaxRate();
+        $taxRateExemptEntity->setRate(0);
+        $taxRateExemptEntity->setName(TaxConstants::TAX_EXEMPT_PLACEHOLDER);
+        $taxRateExemptEntity->save();
+
+        $taxSetEntity = new SpyTaxSet();
+        $taxSetEntity->setName('name of tax set');
+        $taxSetEntity->save();
+
+        $taxSetTaxRateEntity = new SpyTaxSetTax();
+        $taxSetTaxRateEntity->setFkTaxSet($taxSetEntity->getIdTaxSet());
+        $taxSetTaxRateEntity->setFkTaxRate($taxRateEntity1->getIdTaxRate());
+        $taxSetTaxRateEntity->save();
+
+        $taxSetTaxRateEntity = new SpyTaxSetTax();
+        $taxSetTaxRateEntity->setFkTaxSet($taxSetEntity->getIdTaxSet());
+        $taxSetTaxRateEntity->setFkTaxRate($taxRateEntity2->getIdTaxRate());
+        $taxSetTaxRateEntity->save();
+
+        $taxSetTaxRateEntity = new SpyTaxSetTax();
+        $taxSetTaxRateEntity->setFkTaxSet($taxSetEntity->getIdTaxSet());
+        $taxSetTaxRateEntity->setFkTaxRate($taxRateExemptEntity->getIdTaxRate());
+        $taxSetTaxRateEntity->save();
+
+//        $shipmentCarrierEntity = new SpyShipmentCarrier();
+//        $shipmentCarrierEntity->setName('name carrier');
+//        $shipmentCarrierEntity->save();
+//
+//        $shipmentMethodEntity = new SpyShipmentMethod();
+//        $shipmentMethodEntity->setFkShipmentCarrier($shipmentCarrierEntity->getIdShipmentCarrier());
+//        $shipmentMethodEntity->setFkTaxSet($taxSetEntity->getIdTaxSet());
+//        $shipmentMethodEntity->setName('test shipment method');
+//        $shipmentMethodEntity->save();
+
+//        return $shipmentMethodEntity;
+        return;
     }
 }
