@@ -5,32 +5,30 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\TaxProductConnector\Communication\Plugin;
+namespace Spryker\Zed\TaxProductConnector\Communication\Plugin\Calculation;
 
-use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\Calculation\Dependency\Plugin\CalculatorPluginInterface;
+use Generated\Shared\Transfer\CalculableObjectTransfer;
+use Spryker\Zed\CalculationExtension\Dependency\Plugin\CalculationPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @deprecated Use {@link \Spryker\Zed\TaxProductConnector\Communication\Plugin\Calculation\ProductItemTaxRateCalculatorPlugin} instead.
- *
  * @method \Spryker\Zed\TaxProductConnector\Business\TaxProductConnectorFacadeInterface getFacade()
  * @method \Spryker\Zed\TaxProductConnector\TaxProductConnectorConfig getConfig()
  * @method \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface getQueryContainer()
  */
-class ProductItemTaxRateCalculatorPlugin extends AbstractPlugin implements CalculatorPluginInterface
+class ProductItemTaxRateCalculatorPlugin extends AbstractPlugin implements CalculationPluginInterface
 {
     /**
      * {@inheritDoc}
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\CalculableObjectTransfer $calculableObjectTransfer
      *
      * @return void
      */
-    public function recalculate(QuoteTransfer $quoteTransfer)
+    public function recalculate(CalculableObjectTransfer $calculableObjectTransfer)
     {
-        $this->getFacade()->calculateProductItemTaxRate($quoteTransfer);
+        $this->getFacade()->calculateProductItemTaxRateForCalculableObjectTransfer($calculableObjectTransfer);
     }
 }
