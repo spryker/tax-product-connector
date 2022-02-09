@@ -164,11 +164,11 @@ class TaxProductConnectorQueryContainer extends AbstractQueryContainer implement
      * @module Country
      *
      * @param array<int> $productAbstractIds
-     * @param array<string> $countryIso2Codes
+     * @param array<string> $countryIso2Code
      *
      * @return \Orm\Zed\Tax\Persistence\SpyTaxSetQuery
      */
-    public function queryTaxSetByIdProductAbstractAndCountryIso2Codes(array $productAbstractIds, array $countryIso2Codes): SpyTaxSetQuery
+    public function queryTaxSetByIdProductAbstractAndCountryIso2Codes(array $productAbstractIds, array $countryIso2Code): SpyTaxSetQuery
     {
         return $this->getFactory()
             ->createTaxSetQuery()
@@ -180,7 +180,7 @@ class TaxProductConnectorQueryContainer extends AbstractQueryContainer implement
             ->useSpyTaxSetTaxQuery()
                 ->useSpyTaxRateQuery()
                     ->useCountryQuery()
-                        ->filterByIso2Code($countryIso2Codes, Criteria::IN)
+                        ->filterByIso2Code($countryIso2Code, Criteria::IN)
                         ->withColumn(SpyCountryTableMap::COL_ISO2_CODE, static::COL_COUNTRY_CODE)
                         ->groupBy(SpyCountryTableMap::COL_ISO2_CODE)
                     ->endUse()
