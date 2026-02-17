@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerTest\Zed\TaxProductConnector\Business;
+namespace SprykerTest\Zed\TaxProductConnector\Business\Facade;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\ProductAbstractCollectionTransfer;
@@ -19,6 +19,7 @@ use Generated\Shared\Transfer\ProductAbstractRelationsTransfer;
  * @group Zed
  * @group TaxProductConnector
  * @group Business
+ * @group Facade
  * @group Facade
  * @group ExpandProductAbstractCollectionWithTaxSetsFacadeTest
  * Add your own group annotations below this line
