@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\TaxSetResponseTransfer;
 
 interface ProductAbstractTaxReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\TaxSetResponseTransfer
-     */
     public function getTaxSetByProductAbstract(ProductAbstractTransfer $productAbstractTransfer): TaxSetResponseTransfer;
 }

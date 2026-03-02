@@ -18,19 +18,11 @@ class TaxProductConnectorStub implements TaxProductConnectorStubInterface
      */
     protected $zedRequestClient;
 
-    /**
-     * @param \Spryker\Client\TaxProductConnector\Dependency\Client\TaxProductConnectorToZedRequestClientInterface $zedRequestClient
-     */
     public function __construct(TaxProductConnectorToZedRequestClientInterface $zedRequestClient)
     {
         $this->zedRequestClient = $zedRequestClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\TaxSetResponseTransfer
-     */
     public function getTaxSetForProductAbstract(ProductAbstractTransfer $productAbstractTransfer): TaxSetResponseTransfer
     {
         /** @var \Generated\Shared\Transfer\TaxSetResponseTransfer $taxSetResponseTransfer */

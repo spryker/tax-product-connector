@@ -35,12 +35,6 @@ class TaxProductConnectorBusinessTester extends Actor
 {
     use _generated\TaxProductConnectorBusinessTesterActions;
 
-    /**
-     * @param float $currentTaxRate
-     * @param string $iso2Code
-     *
-     * @return \Generated\Shared\Transfer\TaxSetTransfer
-     */
     public function createTaxRateWithTaxSetInDb(float $currentTaxRate, string $iso2Code): TaxSetTransfer
     {
         $idCountry = SpyCountryQuery::create()->filterByIso2Code($iso2Code)->findOne()->getIdCountry();
@@ -62,11 +56,6 @@ class TaxProductConnectorBusinessTester extends Actor
         ]);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\TaxSetTransfer|null $taxSetTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
     public function createProductWithTaxSetInDb(?TaxSetTransfer $taxSetTransfer): ProductAbstractTransfer
     {
         $productAbstractOverride = [];

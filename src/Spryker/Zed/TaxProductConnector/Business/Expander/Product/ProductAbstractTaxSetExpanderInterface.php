@@ -13,19 +13,8 @@ use Generated\Shared\Transfer\ProductAbstractTransfer;
 
 interface ProductAbstractTaxSetExpanderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
     public function expand(ProductAbstractTransfer $productAbstractTransfer): ProductAbstractTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractCollectionTransfer $productAbstractCollectionTransfer
-     * @param \Generated\Shared\Transfer\ProductAbstractCriteriaTransfer $productAbstractCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCollectionTransfer
-     */
     public function expandProductAbstractCollection(
         ProductAbstractCollectionTransfer $productAbstractCollectionTransfer,
         ProductAbstractCriteriaTransfer $productAbstractCriteriaTransfer

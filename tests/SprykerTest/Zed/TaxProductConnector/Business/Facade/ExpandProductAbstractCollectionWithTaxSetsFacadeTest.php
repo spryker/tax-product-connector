@@ -31,9 +31,6 @@ class ExpandProductAbstractCollectionWithTaxSetsFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testExpandProductAbstractCollectionWithTaxSetsFacadeAddsTaxSetDataToCollection(): void
     {
         $expectedTaxSetTransfer = $this->tester->haveTaxSetWithTaxRates();
@@ -63,9 +60,6 @@ class ExpandProductAbstractCollectionWithTaxSetsFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductAbstractCollectionWithTaxSetsFacadeDoesNothingWhenProductHsNoTaxSet(): void
     {
         $expectedProductAbstractTransfer = $this->tester->haveProductAbstract();
@@ -84,9 +78,6 @@ class ExpandProductAbstractCollectionWithTaxSetsFacadeTest extends Unit
         $this->assertEmpty($productAbstractCollectionTransfer->getProductTaxSets());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductAbstractCollectionWithTaxSetsFacadeDoesNothingWhenCollectionIsEmpty(): void
     {
         $expectedProductAbstractCollectionTransfer = new ProductAbstractCollectionTransfer();

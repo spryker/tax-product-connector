@@ -48,11 +48,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
      */
     protected TaxProductConnectorToStoreFacadeInterface $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface $taxQueryContainer
-     * @param \Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToTaxInterface $taxFacade
-     * @param \Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         TaxProductConnectorQueryContainerInterface $taxQueryContainer,
         TaxProductConnectorToTaxInterface $taxFacade,
@@ -74,11 +69,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         $quoteTransfer->setItems($itemTransfers);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CalculableObjectTransfer $calculableObjectTransfer
-     *
-     * @return \Generated\Shared\Transfer\CalculableObjectTransfer
-     */
     public function recalculateWithCalculableObject(CalculableObjectTransfer $calculableObjectTransfer): CalculableObjectTransfer
     {
         $itemTransfers = $this->recalculateWithItemsAndShippingAddress($calculableObjectTransfer->getItems(), $calculableObjectTransfer->getShippingAddress(), $calculableObjectTransfer->getStore());
@@ -110,12 +100,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $this->setItemsTax($itemTransfers, $taxRates);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer|null $shippingAddressTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
-     *
-     * @return string
-     */
     protected function getShippingCountryIso2Code(?AddressTransfer $shippingAddressTransfer, ?StoreTransfer $storeTransfer = null): string
     {
         if (!$shippingAddressTransfer || !$shippingAddressTransfer->getIso2Code()) {
@@ -190,11 +174,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $taxRatesCollection->toArray();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
-     *
-     * @return string
-     */
     protected function getDefaultTaxCountryIso2Code(?StoreTransfer $storeTransfer = null): string
     {
         if ($this->defaultTaxCountryIso2Code === null) {
@@ -214,9 +193,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $this->defaultTaxCountryIso2Code;
     }
 
-    /**
-     * @return float
-     */
     protected function getDefaultTaxRate(): float
     {
         if ($this->defaultTaxRate === null) {

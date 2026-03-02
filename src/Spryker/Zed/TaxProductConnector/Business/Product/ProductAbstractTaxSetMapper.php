@@ -18,9 +18,6 @@ class ProductAbstractTaxSetMapper
      */
     protected $queryContainer;
 
-    /**
-     * @param \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface $queryContainer
-     */
     public function __construct(TaxProductConnectorQueryContainerInterface $queryContainer)
     {
         $this->queryContainer = $queryContainer;

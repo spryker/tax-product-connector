@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\TaxSetResponseTransfer;
 
 interface TaxProductConnectorStubInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\TaxSetResponseTransfer
-     */
     public function getTaxSetForProductAbstract(ProductAbstractTransfer $productAbstractTransfer): TaxSetResponseTransfer;
 }

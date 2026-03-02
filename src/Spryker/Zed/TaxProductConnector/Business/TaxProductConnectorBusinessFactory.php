@@ -45,9 +45,6 @@ class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
         return new ProductAbstractTaxSetMapper($this->getQueryContainer());
     }
 
-    /**
-     * @return \Spryker\Zed\TaxProductConnector\Business\Expander\Product\ProductAbstractTaxSetExpanderInterface
-     */
     public function createProductAbstractTaxSetExpander(): ProductAbstractTaxSetExpanderInterface
     {
         return new ProductAbstractTaxSetExpander(
@@ -65,9 +62,6 @@ class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
         return new ProductItemTaxRateCalculator($this->getQueryContainer(), $this->getTaxFacade(), $this->getStoreFacade());
     }
 
-    /**
-     * @return \Spryker\Zed\TaxProductConnector\Business\Calculator\CalculatorInterface
-     */
     public function createProductItemTaxRateCalculatorWithMultipleShipmentTaxRate(): CalculatorInterface
     {
         return new ProductItemTaxRateCalculatorWithMultipleShipmentTaxRate(
@@ -85,9 +79,6 @@ class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(TaxProductConnectorDependencyProvider::FACADE_TAX);
     }
 
-    /**
-     * @return \Spryker\Zed\TaxProductConnector\Business\Product\ProductAbstractTaxReaderInterface
-     */
     public function createProductAbstractTaxReader(): ProductAbstractTaxReaderInterface
     {
         return new ProductAbstractTaxReader($this->getRepository());
@@ -121,9 +112,6 @@ class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(TaxProductConnectorDependencyProvider::PLUGINS_SHIPPING_ADDRESS_VALIDATOR);
     }
 
-    /**
-     * @return \Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToStoreFacadeInterface
-     */
     public function getStoreFacade(): TaxProductConnectorToStoreFacadeInterface
     {
         return $this->getProvidedDependency(TaxProductConnectorDependencyProvider::FACADE_STORE);

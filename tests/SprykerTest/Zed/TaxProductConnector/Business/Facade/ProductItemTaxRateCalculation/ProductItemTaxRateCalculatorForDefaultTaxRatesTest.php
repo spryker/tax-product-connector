@@ -44,9 +44,6 @@ class ProductItemTaxRateCalculatorForDefaultTaxRatesTest extends Unit
      */
     protected $taxSetTransferList;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -112,9 +109,6 @@ class ProductItemTaxRateCalculatorForDefaultTaxRatesTest extends Unit
         }
     }
 
-    /**
-     * @return array
-     */
     public function taxRateCalculationShouldBeDefaultDataProvider(): array
     {
         return [
@@ -124,9 +118,6 @@ class ProductItemTaxRateCalculatorForDefaultTaxRatesTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithoutQuoteAndItemLevelShippingAddressesToFrance(): array
     {
         $quoteTransfer = (new QuoteBuilder())->withItem()->build();
@@ -134,9 +125,6 @@ class ProductItemTaxRateCalculatorForDefaultTaxRatesTest extends Unit
         return [$quoteTransfer, 'FR', 20.00];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithoutQuoteAndItemLevelShippingAddressesToGermany(): array
     {
         $quoteTransfer = (new QuoteBuilder())->withItem()->build();
@@ -144,9 +132,6 @@ class ProductItemTaxRateCalculatorForDefaultTaxRatesTest extends Unit
         return [$quoteTransfer, 'DE', 15.00];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithoutQuoteAndItemLevelShippingAddressesToMoon(): array
     {
         $quoteTransfer = (new QuoteBuilder())->withItem()->build();

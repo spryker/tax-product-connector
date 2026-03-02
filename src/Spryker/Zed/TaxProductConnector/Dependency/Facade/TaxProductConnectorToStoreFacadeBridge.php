@@ -24,11 +24,6 @@ class TaxProductConnectorToStoreFacadeBridge implements TaxProductConnectorToSto
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getStoreByName(string $storeName): StoreTransfer
     {
         return $this->storeFacade->getStoreByName($storeName);

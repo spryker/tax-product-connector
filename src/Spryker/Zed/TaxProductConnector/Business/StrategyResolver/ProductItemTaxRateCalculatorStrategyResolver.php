@@ -105,11 +105,6 @@ class ProductItemTaxRateCalculatorStrategyResolver implements ProductItemTaxRate
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer|null $shippingAddressTransfer
-     *
-     * @return bool
-     */
     protected function isShippingAddressValid(?AddressTransfer $shippingAddressTransfer): bool
     {
         if ($shippingAddressTransfer === null) {
@@ -119,11 +114,6 @@ class ProductItemTaxRateCalculatorStrategyResolver implements ProductItemTaxRate
         return $this->executeShippingAddressValidatorPlugins($shippingAddressTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AddressTransfer $shippingAddressTransfer
-     *
-     * @return bool
-     */
     protected function executeShippingAddressValidatorPlugins(AddressTransfer $shippingAddressTransfer): bool
     {
         foreach ($this->shippingAddressValidatorPlugins as $shippingAddressValidatorPlugin) {

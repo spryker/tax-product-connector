@@ -20,19 +20,11 @@ class ProductAbstractTaxSetExpander implements ProductAbstractTaxSetExpanderInte
      */
     protected $taxProductConnectorRepository;
 
-    /**
-     * @param \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorRepositoryInterface $taxProductConnectorRepository
-     */
     public function __construct(TaxProductConnectorRepositoryInterface $taxProductConnectorRepository)
     {
         $this->taxProductConnectorRepository = $taxProductConnectorRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
     public function expand(ProductAbstractTransfer $productAbstractTransfer): ProductAbstractTransfer
     {
         $productAbstractTransfer->requireIdProductAbstract();
@@ -46,12 +38,6 @@ class ProductAbstractTaxSetExpander implements ProductAbstractTaxSetExpanderInte
         return $productAbstractTransfer->setIdTaxSet($taxSetTransfer->getIdTaxSet());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractCollectionTransfer $productAbstractCollectionTransfer
-     * @param \Generated\Shared\Transfer\ProductAbstractCriteriaTransfer $productAbstractCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCollectionTransfer
-     */
     public function expandProductAbstractCollection(
         ProductAbstractCollectionTransfer $productAbstractCollectionTransfer,
         ProductAbstractCriteriaTransfer $productAbstractCriteriaTransfer

@@ -15,11 +15,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class TaxProductConnectorRepository extends AbstractRepository implements TaxProductConnectorRepositoryInterface
 {
-    /**
-     * @param string $productAbstractSku
-     *
-     * @return \Generated\Shared\Transfer\TaxSetTransfer|null
-     */
     public function findTaxSetByProductAbstractSku(string $productAbstractSku): ?TaxSetTransfer
     {
         /** @var \Orm\Zed\Tax\Persistence\SpyTaxSet|null $taxSet */
@@ -38,11 +33,6 @@ class TaxProductConnectorRepository extends AbstractRepository implements TaxPro
             ->mapTaxSetEntityToTaxSetTransfer($taxSet);
     }
 
-    /**
-     * @param int $idProductAbstract
-     *
-     * @return \Generated\Shared\Transfer\TaxSetTransfer|null
-     */
     public function findByIdProductAbstract(int $idProductAbstract): ?TaxSetTransfer
     {
         /** @var \Orm\Zed\Tax\Persistence\SpyTaxSet|null $taxSet */

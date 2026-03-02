@@ -49,11 +49,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
      */
     protected TaxProductConnectorToStoreFacadeInterface $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface $taxQueryContainer
-     * @param \Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToTaxInterface $taxFacade
-     * @param \Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         TaxProductConnectorQueryContainerInterface $taxQueryContainer,
         TaxProductConnectorToTaxInterface $taxFacade,
@@ -75,11 +70,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         $quoteTransfer->setItems($itemTransfers);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CalculableObjectTransfer $calculableObjectTransfer
-     *
-     * @return \Generated\Shared\Transfer\CalculableObjectTransfer
-     */
     public function recalculateWithCalculableObject(CalculableObjectTransfer $calculableObjectTransfer): CalculableObjectTransfer
     {
         $itemTransfers = $this->recalculateWithItemTransfers($calculableObjectTransfer->getItems(), $calculableObjectTransfer->getStore());
@@ -167,11 +157,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $mappedResult;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
-     *
-     * @return string
-     */
     protected function getDefaultTaxCountryIso2Code(?StoreTransfer $storeTransfer = null): string
     {
         if ($this->defaultTaxCountryIso2Code === null) {
@@ -191,12 +176,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $this->defaultTaxCountryIso2Code;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer|null $storeTransfer
-     *
-     * @return string
-     */
     protected function getShippingCountryIso2CodeByItem(ItemTransfer $itemTransfer, ?StoreTransfer $storeTransfer = null): string
     {
         if ($this->hasItemShippingAddressDefaultTaxCountryIso2Code($itemTransfer)) {
@@ -206,9 +185,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $this->getDefaultTaxCountryIso2Code($storeTransfer);
     }
 
-    /**
-     * @return float
-     */
     protected function getDefaultTaxRate(): float
     {
         if ($this->defaultTaxRate === null) {
@@ -218,13 +194,6 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return $this->defaultTaxRate;
     }
 
-    /**
-     * @param array $mappedTaxRates
-     * @param int $idProductAbstract
-     * @param string $countryIso2Code
-     *
-     * @return float
-     */
     protected function getEffectiveTaxRate(
         array $mappedTaxRates,
         int $idProductAbstract,
@@ -237,21 +206,11 @@ class ProductItemTaxRateCalculator implements CalculatorInterface
         return (float)$taxRate;
     }
 
-    /**
-     * @param array $resultEntry
-     *
-     * @return string
-     */
     protected function createKeyForMappedArray(array $resultEntry): string
     {
         return $resultEntry[TaxProductConnectorQueryContainer::COL_ID_ABSTRACT_PRODUCT] . '_' . $resultEntry[TaxProductConnectorQueryContainer::COL_COUNTRY_CODE];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return bool
-     */
     protected function hasItemShippingAddressDefaultTaxCountryIso2Code(ItemTransfer $itemTransfer): bool
     {
         $shipmentTransfer = $itemTransfer->getShipment();

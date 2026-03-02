@@ -14,17 +14,11 @@ use Spryker\Client\TaxProductConnector\Zed\TaxProductConnectorStubInterface;
 
 class TaxProductConnectorFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Client\TaxProductConnector\Zed\TaxProductConnectorStubInterface
-     */
     public function createZedStub(): TaxProductConnectorStubInterface
     {
         return new TaxProductConnectorStub($this->getZedRequestClient());
     }
 
-    /**
-     * @return \Spryker\Client\TaxProductConnector\Dependency\Client\TaxProductConnectorToZedRequestClientInterface
-     */
     protected function getZedRequestClient(): TaxProductConnectorToZedRequestClientInterface
     {
         return $this->getProvidedDependency(TaxProductConnectorDependencyProvider::CLIENT_ZED_REQUEST);

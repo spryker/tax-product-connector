@@ -36,9 +36,6 @@ class TaxRateCalculationTest extends Unit
      */
     protected TaxProductConnectorBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     public function testCalculateTaxRateForDefaultCountry(): void
     {
         $quoteTransfer = $this->createQuoteTransferWithoutShippingAddress();
@@ -47,9 +44,6 @@ class TaxRateCalculationTest extends Unit
         $this->assertSame(15.0, $taxAverage);
     }
 
-    /**
-     * @return void
-     */
     public function testCalculateTaxRateForDifferentCountry(): void
     {
         $quoteTransfer = $this->createQuoteTransferWithShippingAddress();
@@ -58,12 +52,6 @@ class TaxRateCalculationTest extends Unit
         $this->assertSame(17.0, $taxAverage);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param array $mockData
-     *
-     * @return float
-     */
     protected function getEffectiveTaxRateByQuoteTransfer(QuoteTransfer $quoteTransfer, array $mockData): float
     {
         $productItemTaxRateCalculatorMock = $this->createProductItemTaxRateCalculator();
@@ -121,11 +109,6 @@ class TaxRateCalculationTest extends Unit
             ->getMock();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return float
-     */
     protected function getProductItemsTaxRateAverage(QuoteTransfer $quoteTransfer): float
     {
         $taxSum = 0;
@@ -138,9 +121,6 @@ class TaxRateCalculationTest extends Unit
         return $taxAverage;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransferWithoutShippingAddress(): QuoteTransfer
     {
         $quoteTransfer = $this->createQuoteTransfer();
@@ -150,9 +130,6 @@ class TaxRateCalculationTest extends Unit
         return $quoteTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransferWithShippingAddress(): QuoteTransfer
     {
         $quoteTransfer = $this->createQuoteTransfer();
@@ -167,11 +144,6 @@ class TaxRateCalculationTest extends Unit
         return $quoteTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return void
-     */
     protected function createItemTransfers(QuoteTransfer $quoteTransfer): void
     {
         $itemTransfer1 = $this->createProductItemTransfer(1);
@@ -181,11 +153,6 @@ class TaxRateCalculationTest extends Unit
         $quoteTransfer->addItem($itemTransfer2);
     }
 
-    /**
-     * @param int $id
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function createProductItemTransfer(int $id): ItemTransfer
     {
         $itemTransfer = $this->createItemTransfer();
@@ -194,25 +161,16 @@ class TaxRateCalculationTest extends Unit
         return $itemTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransfer(): QuoteTransfer
     {
         return new QuoteTransfer();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function createItemTransfer(): ItemTransfer
     {
         return new ItemTransfer();
     }
 
-    /**
-     * @return array
-     */
     protected function getMockDefaultTaxRates(): array
     {
         return [
@@ -223,9 +181,6 @@ class TaxRateCalculationTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getMockCountryBasedTaxRates(): array
     {
         return [

@@ -18,11 +18,6 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
  */
 class GatewayController extends AbstractGatewayController
 {
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\TaxSetResponseTransfer
-     */
     public function getTaxSetForProductAbstractAction(ProductAbstractTransfer $productAbstractTransfer): TaxSetResponseTransfer
     {
         return $this->getFacade()->getTaxSetForProductAbstract($productAbstractTransfer);

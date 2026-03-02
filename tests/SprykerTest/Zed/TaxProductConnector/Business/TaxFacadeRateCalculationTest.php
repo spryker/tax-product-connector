@@ -42,9 +42,6 @@ class TaxFacadeRateCalculationTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testSetTaxRateWhenExemptTaxRateUsedShouldSetZeroTaxRate(): void
     {
         $abstractProductEntity = $this->createAbstractProductWithTaxSet(20, 'GB');
@@ -63,9 +60,6 @@ class TaxFacadeRateCalculationTest extends Unit
         $this->assertSame(0.0, $itemTransfer->getTaxRate());
     }
 
-    /**
-     * @return void
-     */
     public function testSetTaxRateWhenExemptTaxRateUsedAndCountryMatchingShouldUseCountryRate(): void
     {
         //Arrange
@@ -87,12 +81,6 @@ class TaxFacadeRateCalculationTest extends Unit
         $this->assertSame(20.00, $itemTransfer->getTaxRate());
     }
 
-    /**
-     * @param int $taxRate
-     * @param string $iso2Code
-     *
-     * @return \Orm\Zed\Product\Persistence\SpyProductAbstract
-     */
     protected function createAbstractProductWithTaxSet(int $taxRate, string $iso2Code): SpyProductAbstract
     {
         $countryEntity = SpyCountryQuery::create()->findOneByIso2Code($iso2Code);
@@ -142,9 +130,6 @@ class TaxFacadeRateCalculationTest extends Unit
         return $abstractProductEntity;
     }
 
-    /**
-     * @return \Spryker\Zed\TaxProductConnector\Business\TaxProductConnectorFacade
-     */
     protected function createTaxProductConnectorFacade(): TaxProductConnectorFacade
     {
         return new TaxProductConnectorFacade();

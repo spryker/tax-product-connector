@@ -22,17 +22,11 @@ class TaxProductConnectorToTaxBridge implements TaxProductConnectorToTaxInterfac
         $this->taxFacade = $taxFacade;
     }
 
-    /**
-     * @return string
-     */
     public function getDefaultTaxCountryIso2Code(): string
     {
         return $this->taxFacade->getDefaultTaxCountryIso2Code();
     }
 
-    /**
-     * @return float
-     */
     public function getDefaultTaxRate(): float
     {
         return $this->taxFacade->getDefaultTaxRate();

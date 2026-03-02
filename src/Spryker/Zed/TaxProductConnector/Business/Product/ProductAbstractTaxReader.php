@@ -23,19 +23,11 @@ class ProductAbstractTaxReader implements ProductAbstractTaxReaderInterface
      */
     protected $taxProductConnectorRepository;
 
-    /**
-     * @param \Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorRepositoryInterface $taxProductConnectorRepository
-     */
     public function __construct(TaxProductConnectorRepositoryInterface $taxProductConnectorRepository)
     {
         $this->taxProductConnectorRepository = $taxProductConnectorRepository;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
-     *
-     * @return \Generated\Shared\Transfer\TaxSetResponseTransfer
-     */
     public function getTaxSetByProductAbstract(ProductAbstractTransfer $productAbstractTransfer): TaxSetResponseTransfer
     {
         $taxSetResponseTransfer = new TaxSetResponseTransfer();

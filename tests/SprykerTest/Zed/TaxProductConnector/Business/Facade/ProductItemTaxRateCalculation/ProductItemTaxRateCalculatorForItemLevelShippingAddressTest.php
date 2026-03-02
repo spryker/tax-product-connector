@@ -47,9 +47,6 @@ class ProductItemTaxRateCalculatorForItemLevelShippingAddressTest extends Unit
      */
     protected $taxSetTransferList;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -108,9 +105,6 @@ class ProductItemTaxRateCalculatorForItemLevelShippingAddressTest extends Unit
         }
     }
 
-    /**
-     * @return array
-     */
     public function taxRateCalculationShouldUseItemShippingAddressDataProvider(): array
     {
         return [
@@ -118,9 +112,6 @@ class ProductItemTaxRateCalculatorForItemLevelShippingAddressTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithItemLevelShippingAddressesToFranceAndGermany(): array
     {
         $itemTransfer1 = $this->createItemTransfer('FR');
@@ -133,11 +124,6 @@ class ProductItemTaxRateCalculatorForItemLevelShippingAddressTest extends Unit
         return [$quoteTransfer, [$itemTransfer1->getSku() => 20.00, $itemTransfer2->getSku() => 15.00]];
     }
 
-    /**
-     * @param string $iso2Code
-     *
-     * @return \Generated\Shared\Transfer\ItemTransfer
-     */
     protected function createItemTransfer(string $iso2Code): ItemTransfer
     {
         $addressBuilder1 = (new AddressBuilder([AddressTransfer::ISO2_CODE => $iso2Code]));

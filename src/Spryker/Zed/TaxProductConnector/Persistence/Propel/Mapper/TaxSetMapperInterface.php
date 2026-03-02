@@ -13,11 +13,6 @@ use Propel\Runtime\Collection\Collection;
 
 interface TaxSetMapperInterface
 {
-    /**
-     * @param \Orm\Zed\Tax\Persistence\SpyTaxSet $taxSetEntity
-     *
-     * @return \Generated\Shared\Transfer\TaxSetTransfer
-     */
     public function mapTaxSetEntityToTaxSetTransfer(SpyTaxSet $taxSetEntity): TaxSetTransfer;
 
     /**

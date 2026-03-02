@@ -38,9 +38,6 @@ use Spryker\Zed\TaxProductConnector\Communication\Plugin\TaxSetProductAbstractRe
  */
 class TaxProductConnectorFacadeTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testSaveTaxSetToProductAbstractShouldPersistTaxSetId(): void
     {
         $this->tester->setDependency(
@@ -61,9 +58,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $this->assertSame($taxSetTransfer->getIdTaxSet(), $productAbstractTransfer->getIdTaxSet());
     }
 
-    /**
-     * @return void
-     */
     public function testSaveTaxSetToProductWhenProductDoesNotExistShouldThrowException(): void
     {
         $this->expectException(ProductAbstractNotFoundException::class);
@@ -75,9 +69,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $taxProductConnectorFacade->saveTaxSetToProductAbstract($productAbstractTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testSaveTaxSetToProductWhenProductIdNotGivenShouldThrowException(): void
     {
         $this->expectException(RequiredTransferPropertyException::class);
@@ -86,9 +77,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $taxProductConnectorFacade->saveTaxSetToProductAbstract(new ProductAbstractTransfer());
     }
 
-    /**
-     * @return void
-     */
     public function testAddTaxSetShouldAssignTaxSetIdToTransfer(): void
     {
         $taxProductConnectorFacade = $this->createTaxProductConnectorFacade();
@@ -107,9 +95,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $this->assertSame($productAbstractTransfer->getIdTaxSet(), $taxSetTransfer->getIdTaxSet());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductAbstractExpandsProductTransferWithTaxSet(): void
     {
         // Arrange
@@ -127,9 +112,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $this->assertSame($productAbstractTransfer->getIdTaxSet(), $taxSetTransfer->getIdTaxSet());
     }
 
-    /**
-     * @return void
-     */
     public function testExpandProductAbstractDoesNothingForProductWithoutTaxSet(): void
     {
         // Arrange
@@ -143,9 +125,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $this->assertNull($productAbstractTransfer->getIdTaxSet());
     }
 
-    /**
-     * @return void
-     */
     public function testAddTaxSetWhenTaxSetDoesNotExistShouldThrowException(): void
     {
         $this->expectException(TaxSetNotFoundException::class);
@@ -157,9 +136,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $taxProductConnectorFacade->mapTaxSet($productAbstractTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddTaxSetWhenProductIdNotGivenShouldThrowException(): void
     {
         $this->expectException(RequiredTransferPropertyException::class);
@@ -168,9 +144,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $taxProductConnectorFacade->mapTaxSet(new ProductAbstractTransfer());
     }
 
-    /**
-     * @return void
-     */
     public function testGettingTaxRatesByProductAbstract(): void
     {
         $taxProductConnectorFacade = $this->createTaxProductConnectorFacade();
@@ -191,9 +164,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $this->assertCount(1, $taxSetsResponseTransfer->getTaxSet()->getTaxRates());
     }
 
-    /**
-     * @return void
-     */
     public function testGettingTaxRatesByNonExistentProductAbstract(): void
     {
         $taxProductConnectorFacade = $this->createTaxProductConnectorFacade();
@@ -207,9 +177,6 @@ class TaxProductConnectorFacadeTest extends Unit
         $this->assertNull($taxSetsResponseTransfer->getTaxSet());
     }
 
-    /**
-     * @return \Spryker\Zed\TaxProductConnector\Business\TaxProductConnectorFacadeInterface
-     */
     protected function createTaxProductConnectorFacade(): TaxProductConnectorFacadeInterface
     {
         return new TaxProductConnectorFacade();
@@ -231,9 +198,6 @@ class TaxProductConnectorFacadeTest extends Unit
         return new TaxFacade();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\TaxSetTransfer
-     */
     protected function createTaxSet(): TaxSetTransfer
     {
         $taxFacade = $this->createTaxFacade();
@@ -254,9 +218,6 @@ class TaxProductConnectorFacadeTest extends Unit
         return $taxSetTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
-     */
     protected function createProductAbstract(): ProductAbstractTransfer
     {
         $productFacade = $this->createProductFacade();

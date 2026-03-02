@@ -9,13 +9,7 @@ namespace Spryker\Zed\TaxProductConnector\Dependency\Facade;
 
 interface TaxProductConnectorToTaxInterface
 {
-    /**
-     * @return string
-     */
     public function getDefaultTaxCountryIso2Code(): string;
 
-    /**
-     * @return float
-     */
     public function getDefaultTaxRate(): float;
 }

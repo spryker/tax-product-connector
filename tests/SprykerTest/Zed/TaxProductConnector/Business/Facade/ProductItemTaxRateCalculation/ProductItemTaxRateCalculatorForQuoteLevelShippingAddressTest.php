@@ -45,9 +45,6 @@ class ProductItemTaxRateCalculatorForQuoteLevelShippingAddressTest extends Unit
      */
     protected $taxSetTransferList;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -107,9 +104,6 @@ class ProductItemTaxRateCalculatorForQuoteLevelShippingAddressTest extends Unit
         }
     }
 
-    /**
-     * @return array
-     */
     public function taxRateCalculationShouldUseQuoteShippingAddressDataProvider(): array
     {
         return [
@@ -118,9 +112,6 @@ class ProductItemTaxRateCalculatorForQuoteLevelShippingAddressTest extends Unit
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithQuoteLevelShippingAddressToFrance(): array
     {
         $addressBuilder = (new AddressBuilder([AddressTransfer::ISO2_CODE => 'FR']));
@@ -133,9 +124,6 @@ class ProductItemTaxRateCalculatorForQuoteLevelShippingAddressTest extends Unit
         return [$quoteTransfer, [$itemTransfer->getSku() => 20.00]];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithQuoteLevelShippingAddressToMoon(): array
     {
         $addressBuilder = (new AddressBuilder([AddressTransfer::ISO2_CODE => 'MOON']));
