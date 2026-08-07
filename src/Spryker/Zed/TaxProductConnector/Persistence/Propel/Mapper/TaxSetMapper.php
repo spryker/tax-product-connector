@@ -15,11 +15,20 @@ use Propel\Runtime\Collection\Collection;
 
 class TaxSetMapper implements TaxSetMapperInterface
 {
-    public function mapTaxSetEntityToTaxSetTransfer(SpyTaxSet $taxSetEntity): TaxSetTransfer
+    /**
+     * @param \Orm\Zed\Tax\Persistence\SpyTaxSet $taxSetEntity
+     * @param iterable<\Orm\Zed\Tax\Persistence\SpyTaxRate>|null $taxRateEntities
+     *
+     * @return \Generated\Shared\Transfer\TaxSetTransfer
+     */
+    public function mapTaxSetEntityToTaxSetTransfer(SpyTaxSet $taxSetEntity, ?iterable $taxRateEntities = null): TaxSetTransfer
     {
         $taxSetTransfer = new TaxSetTransfer();
         $taxSetTransfer->fromArray($taxSetEntity->toArray(), true);
-        foreach ($taxSetEntity->getSpyTaxRates() as $taxRate) {
+
+        $taxRateEntities ??= $taxSetEntity->getSpyTaxRates();
+
+        foreach ($taxRateEntities as $taxRate) {
             $taxRateTransfer = (new TaxRateTransfer())->fromArray($taxRate->toArray(), true);
             /** @var \Orm\Zed\Country\Persistence\SpyCountry|null $countryEntity */
             $countryEntity = $taxRate->getCountry();

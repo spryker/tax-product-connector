@@ -8,6 +8,7 @@
 namespace Spryker\Zed\TaxProductConnector\Persistence;
 
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
+use Orm\Zed\Tax\Persistence\SpyTaxRateQuery;
 use Orm\Zed\Tax\Persistence\SpyTaxSetQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 use Spryker\Zed\TaxProductConnector\Persistence\Propel\Mapper\TaxSetMapper;
@@ -34,6 +35,14 @@ class TaxProductConnectorPersistenceFactory extends AbstractPersistenceFactory
     public function createTaxSetQuery()
     {
         return SpyTaxSetQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\Tax\Persistence\SpyTaxRateQuery
+     */
+    public function createTaxRateQuery()
+    {
+        return SpyTaxRateQuery::create();
     }
 
     public function createTaxSetMapper(): TaxSetMapperInterface

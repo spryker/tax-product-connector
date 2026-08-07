@@ -8,6 +8,8 @@
 namespace Spryker\Zed\TaxProductConnector\Persistence;
 
 use Generated\Shared\Transfer\TaxSetTransfer;
+use Orm\Zed\Tax\Persistence\SpyTaxSet;
+use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
@@ -30,7 +32,7 @@ class TaxProductConnectorRepository extends AbstractRepository implements TaxPro
 
         return $this->getFactory()
             ->createTaxSetMapper()
-            ->mapTaxSetEntityToTaxSetTransfer($taxSet);
+            ->mapTaxSetEntityToTaxSetTransfer($taxSet, $this->getTaxRateEntitiesWithCountry($taxSet));
     }
 
     public function findByIdProductAbstract(int $idProductAbstract): ?TaxSetTransfer
@@ -48,7 +50,29 @@ class TaxProductConnectorRepository extends AbstractRepository implements TaxPro
 
         return $this->getFactory()
             ->createTaxSetMapper()
-            ->mapTaxSetEntityToTaxSetTransfer($taxSet);
+            ->mapTaxSetEntityToTaxSetTransfer($taxSet, $this->getTaxRateEntitiesWithCountry($taxSet));
+    }
+
+    /**
+     * @module Tax
+     * @module Country
+     *
+     * @param \Orm\Zed\Tax\Persistence\SpyTaxSet $taxSetEntity
+     *
+     * @return \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\Tax\Persistence\SpyTaxRate>
+     */
+    protected function getTaxRateEntitiesWithCountry(SpyTaxSet $taxSetEntity): ObjectCollection
+    {
+        /** @var \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\Tax\Persistence\SpyTaxRate> $taxRateEntities */
+        $taxRateEntities = $this->getFactory()
+            ->createTaxRateQuery()
+            ->leftJoinWithCountry()
+            ->useSpyTaxSetTaxQuery()
+                ->filterByFkTaxSet($taxSetEntity->getIdTaxSet())
+            ->endUse()
+            ->find();
+
+        return $taxRateEntities;
     }
 
     /**
