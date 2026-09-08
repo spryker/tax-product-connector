@@ -8,8 +8,10 @@
 namespace Spryker\Zed\TaxProductConnector\Business\Product;
 
 use Generated\Shared\Transfer\ProductAbstractTransfer;
+use Orm\Zed\Product\Persistence\SpyProductAbstract;
 use Spryker\Zed\TaxProductConnector\Business\Exception\ProductAbstractNotFoundException;
 use Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorQueryContainerInterface;
+use Spryker\Zed\TaxProductConnector\Persistence\TaxProductConnectorRepositoryInterface;
 
 class ProductAbstractTaxWriter
 {
@@ -18,8 +20,10 @@ class ProductAbstractTaxWriter
      */
     protected $queryContainer;
 
-    public function __construct(TaxProductConnectorQueryContainerInterface $queryContainer)
-    {
+    public function __construct(
+        TaxProductConnectorQueryContainerInterface $queryContainer,
+        protected readonly TaxProductConnectorRepositoryInterface $taxProductConnectorRepository
+    ) {
         $this->queryContainer = $queryContainer;
     }
 
@@ -47,9 +51,28 @@ class ProductAbstractTaxWriter
             );
         }
 
-        $productAbstractEntity->setFkTaxSet($productConcreteTransfer->getIdTaxSet());
+        $productAbstractEntity->setFkTaxSet($this->resolveIdTaxSet($productConcreteTransfer, $productAbstractEntity));
         $productAbstractEntity->save();
 
         return $productConcreteTransfer;
+    }
+
+    protected function resolveIdTaxSet(
+        ProductAbstractTransfer $productAbstractTransfer,
+        SpyProductAbstract $productAbstractEntity
+    ): ?int {
+        if ($productAbstractTransfer->getIdTaxSet() !== null) {
+            return $productAbstractTransfer->getIdTaxSet();
+        }
+
+        $taxSetUuid = $productAbstractTransfer->getTaxSetUuid();
+
+        if ($taxSetUuid === null) {
+            return null;
+        }
+
+        // A requested UUID that cannot be resolved must not unassign the currently assigned tax set.
+        return $this->taxProductConnectorRepository->findIdTaxSetByUuid($taxSetUuid)
+            ?? $productAbstractEntity->getFkTaxSet();
     }
 }

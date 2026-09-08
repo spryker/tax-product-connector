@@ -17,6 +17,8 @@ use Spryker\Zed\TaxProductConnector\Business\Product\ProductAbstractTaxReader;
 use Spryker\Zed\TaxProductConnector\Business\Product\ProductAbstractTaxReaderInterface;
 use Spryker\Zed\TaxProductConnector\Business\Product\ProductAbstractTaxSetMapper;
 use Spryker\Zed\TaxProductConnector\Business\Product\ProductAbstractTaxWriter;
+use Spryker\Zed\TaxProductConnector\Business\Product\Validator\ProductTaxSetValidator;
+use Spryker\Zed\TaxProductConnector\Business\Product\Validator\ProductTaxSetValidatorInterface;
 use Spryker\Zed\TaxProductConnector\Business\StrategyResolver\ProductItemTaxRateCalculatorStrategyResolver;
 use Spryker\Zed\TaxProductConnector\Business\StrategyResolver\ProductItemTaxRateCalculatorStrategyResolverInterface;
 use Spryker\Zed\TaxProductConnector\Dependency\Facade\TaxProductConnectorToStoreFacadeInterface;
@@ -34,7 +36,7 @@ class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
      */
     public function createProductAbstractTaxWriter()
     {
-        return new ProductAbstractTaxWriter($this->getQueryContainer());
+        return new ProductAbstractTaxWriter($this->getQueryContainer(), $this->getRepository());
     }
 
     /**
@@ -115,5 +117,10 @@ class TaxProductConnectorBusinessFactory extends AbstractBusinessFactory
     public function getStoreFacade(): TaxProductConnectorToStoreFacadeInterface
     {
         return $this->getProvidedDependency(TaxProductConnectorDependencyProvider::FACADE_STORE);
+    }
+
+    public function createProductTaxSetValidator(): ProductTaxSetValidatorInterface
+    {
+        return new ProductTaxSetValidator($this->getRepository());
     }
 }

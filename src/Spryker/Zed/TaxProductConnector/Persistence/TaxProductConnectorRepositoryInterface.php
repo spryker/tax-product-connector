@@ -21,4 +21,15 @@ interface TaxProductConnectorRepositoryInterface
      * @return array<int, \Generated\Shared\Transfer\TaxSetTransfer>
      */
     public function getTaxSets(array $productAbstractIds): array;
+
+    public function isTaxSetUuidSupported(): bool;
+
+    public function findIdTaxSetByUuid(string $uuid): ?int;
+
+    /**
+     * @param array<string> $uuids
+     *
+     * @return array<string>
+     */
+    public function getKnownTaxSetUuids(array $uuids): array;
 }

@@ -8,6 +8,7 @@
 namespace Spryker\Zed\TaxProductConnector\Persistence;
 
 use Generated\Shared\Transfer\TaxSetTransfer;
+use Orm\Zed\Tax\Persistence\Map\SpyTaxSetTableMap;
 use Orm\Zed\Tax\Persistence\SpyTaxSet;
 use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
@@ -17,6 +18,11 @@ use Spryker\Zed\Kernel\Persistence\AbstractRepository;
  */
 class TaxProductConnectorRepository extends AbstractRepository implements TaxProductConnectorRepositoryInterface
 {
+    /**
+     * @uses \Orm\Zed\Tax\Persistence\Map\SpyTaxSetTableMap::COL_UUID
+     */
+    protected const string COLUMN_UUID = 'uuid';
+
     public function findTaxSetByProductAbstractSku(string $productAbstractSku): ?TaxSetTransfer
     {
         /** @var \Orm\Zed\Tax\Persistence\SpyTaxSet|null $taxSet */
@@ -91,5 +97,48 @@ class TaxProductConnectorRepository extends AbstractRepository implements TaxPro
         return $this->getFactory()
             ->createTaxSetMapper()
             ->mapProductAbstractEntitiesToTaxSetTransfers($productAbstractEntities);
+    }
+
+    public function isTaxSetUuidSupported(): bool
+    {
+        return SpyTaxSetTableMap::getTableMap()->hasColumn(static::COLUMN_UUID);
+    }
+
+    /**
+     * @module Tax
+     */
+    public function findIdTaxSetByUuid(string $uuid): ?int
+    {
+        if (!$this->isTaxSetUuidSupported()) {
+            return null;
+        }
+
+        $taxSetEntity = $this->getFactory()
+            ->createTaxSetQuery()
+            ->filterByUuid($uuid)
+            ->findOne();
+
+        return $taxSetEntity?->getIdTaxSet();
+    }
+
+    /**
+     * @module Tax
+     *
+     * @param array<string> $uuids
+     *
+     * @return array<string>
+     */
+    public function getKnownTaxSetUuids(array $uuids): array
+    {
+        if ($uuids === [] || !$this->isTaxSetUuidSupported()) {
+            return [];
+        }
+
+        return $this->getFactory()
+            ->createTaxSetQuery()
+            ->filterByUuid_In($uuids)
+            ->select([SpyTaxSetTableMap::COL_UUID])
+            ->find()
+            ->getData();
     }
 }
