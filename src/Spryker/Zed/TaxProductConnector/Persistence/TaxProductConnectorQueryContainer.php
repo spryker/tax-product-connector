@@ -41,8 +41,6 @@ class TaxProductConnectorQueryContainer extends AbstractQueryContainer implement
      *
      * @api
      *
-     * @todo CD-427 Follow naming conventions and use method name starting with 'query*'
-     *
      * @param int $idTaxRate
      *
      * @return \Orm\Zed\Product\Persistence\SpyProductAbstractQuery
@@ -67,8 +65,6 @@ class TaxProductConnectorQueryContainer extends AbstractQueryContainer implement
      * {@inheritDoc}
      *
      * @api
-     *
-     * @todo CD-427 Follow naming conventions and use method name starting with 'query*'
      *
      * @param int $idTaxSet
      *

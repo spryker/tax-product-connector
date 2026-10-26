@@ -75,12 +75,16 @@
     </transfer>
 
     <transfer name="ProductAbstractCollectionRequest" strict="true">
+        <property name="productAbstracts" type="ProductAbstract[]" singular="productAbstract"/>
     </transfer>
 
     <transfer name="ProductAbstractCollectionResponse" strict="true">
+        <property name="errors" type="Error[]" singular="error"/>
     </transfer>
 
     <transfer name="Error">
+        <property name="entityIdentifier" type="string"/>
+        <property name="message" type="string"/>
     </transfer>
 
 </transfers>
